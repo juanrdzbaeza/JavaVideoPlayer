@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.media.MediaView?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.juanrdzbaeza.javavideoplayer.VideoPlayerController">
+  <center>
+    <MediaView fx:id="mediaView" fitWidth="800" fitHeight="500"/>
+  </center>
+  <bottom>
+    <HBox spacing="10" alignment="CENTER">
+      <Button text="Open File" onAction="#onOpenFileClick"/>
+      <Button text="Play" onAction="#onPlayClick" fx:id="playButton"/>
+      <Button text="Pause" onAction="#onPauseClick" fx:id="pauseButton"/>
+      <Button text="Stop" onAction="#onStopClick" fx:id="stopButton"/>
+    </HBox>
+  </bottom>
+</BorderPane>
