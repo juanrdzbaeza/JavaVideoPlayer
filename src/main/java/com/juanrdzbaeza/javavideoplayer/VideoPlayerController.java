@@ -122,4 +122,23 @@ public class VideoPlayerController {
             mediaPlayer.stop();
         }
     }
+
+    @FXML
+    protected void onRepeatClick() {
+        if (mediaPlayer != null) {
+            isLooping = !isLooping; // Alternar el estado de bucle
+            mediaPlayer.setCycleCount(isLooping ? MediaPlayer.INDEFINITE : 1);
+            repeatButton.setText(isLooping ? "\uD83D\uDD03: ON" : "\uD83D\uDD03: OFF");
+        }
+    }
+
+    @FXML
+    protected void onMuteClick() {
+        if (mediaPlayer != null) {
+            isMute = !isMute; // Alternar el estado de silencio
+            mediaPlayer.setMute(isMute);
+            muteButton.setText(isMute ? "🔇" : "🔊");
+        }
+    }
+
 }
