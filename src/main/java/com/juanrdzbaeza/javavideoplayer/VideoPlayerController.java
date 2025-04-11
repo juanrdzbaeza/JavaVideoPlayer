@@ -82,10 +82,24 @@ public class VideoPlayerController {
             if (mediaPlayer != null) {
                 mediaPlayer.stop();
             }
-            Media media = new Media(file.toURI().toString());
+            media = new Media(file.toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
+
+            // Actualizar el slider de progreso según la duración del video
+            mediaPlayer.setOnReady(() -> {
+                mediaSlider.setMax(mediaPlayer.getTotalDuration().toSeconds());
+            });
+
+            // Sincronizar el slider de progreso con el tiempo actual del video
+            mediaPlayer.currentTimeProperty().addListener((observable, oldTime, newTime) -> {
+                mediaSlider.setValue(newTime.toSeconds());
+            });
+
+            mediaPlayer.play();
+
         }
+
     }
 
     @FXML
