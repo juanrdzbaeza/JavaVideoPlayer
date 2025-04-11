@@ -46,7 +46,31 @@ public class VideoPlayerController {
     private boolean isLooping = false;
     private boolean isMute = false;
 
-    private MediaPlayer mediaPlayer;
+    @FXML
+    public void initialize() {
+
+        System.out.println("VideoPlayerController initialized");
+
+        // Configurar el slider de volumen
+        volumeSlider.setMin(0);
+        volumeSlider.setMax(1); // El volumen en MediaPlayer va de 0.0 a 1.0
+        volumeSlider.setValue(0.5); // Volumen inicial al 50%
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.setVolume(newValue.doubleValue());
+            }
+        });
+
+        // Configurar el slider de progreso
+        mediaSlider.setMin(0);
+        mediaSlider.setValue(0);
+        mediaSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (mediaPlayer != null && Math.abs(newValue.doubleValue() - mediaPlayer.getCurrentTime().toSeconds()) > 0.5) {
+                mediaPlayer.seek(javafx.util.Duration.seconds(newValue.doubleValue()));
+            }
+        });
+
+    }
 
     @FXML
     protected void onOpenFileClick() {
