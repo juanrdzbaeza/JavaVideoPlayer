@@ -1,0 +1,44 @@
+/* Estilo general para toda la aplicación */
+.root {
+    /*-fx-font-family: "";*/
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f4f4;
+}
+
+/* Botones */
+.button {
+    -fx-background-color: #3fa8fa;
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.controls {
+    -fx-font-size: 24px;
+}
+
+.button:hover {
+    -fx-background-color: #005a9e;
+}
+
+/* Sliders */
+.slider {
+    -fx-padding: 5;
+}
+
+.slider .track {
+    -fx-background-color: #cccccc;
+}
+
+.slider .thumb {
+    -fx-background-color: #3fa8fa;
+}
+
+/* MediaView */
+.media-player {
+    -fx-background-color: #d3d3d3;
+    -fx-border-color: #808080;
+    -fx-border-width: 2;
+    -fx-border-style: solid;
+}
