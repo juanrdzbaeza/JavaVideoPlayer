@@ -5,17 +5,40 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.media.MediaView?>
 
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.VBox?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.juanrdzbaeza.javavideoplayer.VideoPlayerController">
-  <center>
-    <MediaView fx:id="mediaView" fitWidth="800" fitHeight="500"/>
-  </center>
-  <bottom>
-    <HBox spacing="10" alignment="CENTER">
-      <Button text="Open File" onAction="#onOpenFileClick"/>
-      <Button text="Play" onAction="#onPlayClick" fx:id="playButton"/>
-      <Button text="Pause" onAction="#onPauseClick" fx:id="pauseButton"/>
-      <Button text="Stop" onAction="#onStopClick" fx:id="stopButton"/>
-    </HBox>
-  </bottom>
+            fx:controller="com.juanrdzbaeza.javavideoplayer.VideoPlayerController"
+            stylesheets="@css/styles.css">
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Button text="Open File" onAction="#onOpenFileClick"/>
+        </HBox>
+    </top>
+    <center>
+        <StackPane fx:id="mediaViewContainer"
+                   styleClass="media-player">
+            <MediaView fx:id="mediaView" fitWidth="800" fitHeight="450"/>
+        </StackPane>
+    </center>
+    <bottom>
+        <VBox>
+            <HBox spacing="10" alignment="CENTER" prefHeight="40">
+                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="controls">
+                    <Button text="▶️" onAction="#onPlayClick" fx:id="playButton" />
+                    <Button text="⏸️" onAction="#onPauseClick" fx:id="pauseButton"/>
+                    <Button text="⏹️" onAction="#onStopClick" fx:id="stopButton"/>
+                    <Button text="🔃" onAction="#onRepeatClick" fx:id="repeatButton"/>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Slider fx:id="mediaSlider" min="0" max="100" value="0"/>
+                    <Slider fx:id="volumeSlider" min="0" max="100" value="0"/>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_RIGHT" styleClass="controls" >
+                    <Button text="🔇" onAction="#onMuteClick" fx:id="muteButton"/>
+                </HBox>
+            </HBox>
+        </VBox>
+    </bottom>
 </BorderPane>
