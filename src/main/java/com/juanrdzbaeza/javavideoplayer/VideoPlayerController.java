@@ -1,6 +1,8 @@
 package com.juanrdzbaeza.javavideoplayer;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
@@ -39,6 +41,8 @@ public class VideoPlayerController {
 
     @FXML
     private Slider volumeSlider;
+    @FXML
+    private HBox controlsBar;
 
     private File file;
     private Media media;
@@ -48,7 +52,6 @@ public class VideoPlayerController {
 
     @FXML
     public void initialize() {
-
         System.out.println("VideoPlayerController initialized");
 
         // Configurar el slider de volumen
