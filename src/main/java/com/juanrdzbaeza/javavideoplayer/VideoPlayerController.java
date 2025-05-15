@@ -2,10 +2,9 @@ package com.juanrdzbaeza.javavideoplayer;
 
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -22,7 +21,7 @@ import java.util.Queue;
 public class VideoPlayerController {
 
     @FXML
-    private BorderPane borderPane;
+    private StackPane stackPane;
     @FXML
     private MediaView mediaView;
     @FXML
@@ -41,7 +40,6 @@ public class VideoPlayerController {
     private Slider volumeSlider;
     @FXML
     private HBox controlsBar;
-
     private File file;
     private Media media;
     private MediaPlayer mediaPlayer;
@@ -94,7 +92,7 @@ public class VideoPlayerController {
             hideControls();
 
             // Mostrar la barra de controles cuando el ratón se mueve cerca del borde superior
-            borderPane.setOnMouseMoved(event -> {
+            stackPane.setOnMouseMoved(event -> {
                 if (event.getY() <= 30) { // Ajusta este valor según la altura de tu barra de controles
                     showControls();
                 } else {
@@ -150,6 +148,7 @@ public class VideoPlayerController {
     protected void onPlayClick() {
         if (mediaPlayer != null) {
             mediaPlayer.play();
+            hideControls(); // Ocultar los controles al hacer clic en reproducir
         }
     }
 
@@ -157,6 +156,7 @@ public class VideoPlayerController {
     protected void onPauseClick() {
         if (mediaPlayer != null) {
             mediaPlayer.pause();
+            showControls(); // Mostrar los controles al hacer clic en pausa
         }
     }
 
@@ -164,6 +164,7 @@ public class VideoPlayerController {
     protected void onStopClick() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
+            showControls(); // Mostrar los controles al hacer clic en detener
         }
     }
 
@@ -191,9 +192,6 @@ public class VideoPlayerController {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), controlsBar);
         fadeTransition.setFromValue(0.0);
         fadeTransition.setToValue(1.0);
-        fadeTransition.setOnFinished(event -> {
-            BorderPane.setMargin(mediaView, new Insets(0, 0, 0, 0));
-        });
         fadeTransition.play();
     }
 
@@ -204,7 +202,6 @@ public class VideoPlayerController {
         fadeTransition.setOnFinished(event -> {
             controlsBar.setVisible(false);
             controlsBar.setManaged(false);
-            BorderPane.setMargin(mediaView, null);
         });
         fadeTransition.play();
     }
