@@ -3,48 +3,49 @@ package com.juanrdzbaeza.javavideoplayer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class VideoPlayerController {
 
     @FXML
-    private StackPane mediaViewContainer;
-
+    private BorderPane borderPane;
     @FXML
     private MediaView mediaView;
-
     @FXML
     private Button playButton;
-
     @FXML
     private Button pauseButton;
-
     @FXML
     private Button stopButton;
-
     @FXML
     private Button repeatButton;
-
     @FXML
     private Button muteButton;
-
     @FXML
     private Slider mediaSlider;
-
     @FXML
     private Slider volumeSlider;
-
+    @FXML
     private File file;
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean isLooping = false;
     private boolean isMute = false;
+    private List<File> files;
+    private Queue<File> playlist = new LinkedList<>();
+    private double initialMediaViewHeight;
 
     @FXML
     public void initialize() {
@@ -106,31 +107,40 @@ public class VideoPlayerController {
     @FXML
     protected void onOpenFileClick() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Video Files", "*.mp4", "*.mkv", "*.avi"));
-        File file = fileChooser.showOpenDialog(null);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Video Files", "*.mp4", "*.MP4"));
 
-        if (file != null) {
+        this.files = fileChooser.showOpenMultipleDialog(new Stage());
+
+        if (files != null) {
+            playlist.addAll(files);
+            playNextVideo();
+        }
+    }
+
+    private void playNextVideo() {
+        if (!playlist.isEmpty()) {
+            File nextFile = playlist.poll();
             if (mediaPlayer != null) {
                 mediaPlayer.stop();
             }
-            media = new Media(file.toURI().toString());
+            media = new Media(nextFile.toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
 
-            // Actualizar el slider de progreso según la duración del video
             mediaPlayer.setOnReady(() -> {
                 mediaSlider.setMax(mediaPlayer.getTotalDuration().toSeconds());
+                mediaPlayer.play();
+                hideControls(); // Ocultar los controles al empezar la reproducción
             });
 
-            // Sincronizar el slider de progreso con el tiempo actual del video
             mediaPlayer.currentTimeProperty().addListener((observable, oldTime, newTime) -> {
                 mediaSlider.setValue(newTime.toSeconds());
             });
 
-            mediaPlayer.play();
-
+            mediaPlayer.setOnEndOfMedia(() -> {
+                playNextVideo();
+            });
         }
-
     }
 
     @FXML
