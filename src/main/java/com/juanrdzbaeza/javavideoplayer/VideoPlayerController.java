@@ -141,4 +141,27 @@ public class VideoPlayerController {
         }
     }
 
+    private void showControls() {
+        controlsBar.setVisible(true);
+        controlsBar.setManaged(true);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), controlsBar);
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.setOnFinished(event -> {
+            BorderPane.setMargin(mediaView, new Insets(0, 0, 0, 0));
+        });
+        fadeTransition.play();
+    }
+
+    private void hideControls() {
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), controlsBar);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.setOnFinished(event -> {
+            controlsBar.setVisible(false);
+            controlsBar.setManaged(false);
+            BorderPane.setMargin(mediaView, null);
+        });
+        fadeTransition.play();
+    }
 }
