@@ -75,31 +75,40 @@ public class VideoPlayerController {
     @FXML
     protected void onOpenFileClick() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Video Files", "*.mp4", "*.mkv", "*.avi"));
-        File file = fileChooser.showOpenDialog(null);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Video Files", "*.mp4", "*.MP4"));
 
-        if (file != null) {
+        this.files = fileChooser.showOpenMultipleDialog(new Stage());
+
+        if (files != null) {
+            playlist.addAll(files);
+            playNextVideo();
+        }
+    }
+
+    private void playNextVideo() {
+        if (!playlist.isEmpty()) {
+            File nextFile = playlist.poll();
             if (mediaPlayer != null) {
                 mediaPlayer.stop();
             }
-            media = new Media(file.toURI().toString());
+            media = new Media(nextFile.toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
 
-            // Actualizar el slider de progreso según la duración del video
             mediaPlayer.setOnReady(() -> {
                 mediaSlider.setMax(mediaPlayer.getTotalDuration().toSeconds());
+                mediaPlayer.play();
+                hideControls(); // Ocultar los controles al empezar la reproducción
             });
 
-            // Sincronizar el slider de progreso con el tiempo actual del video
             mediaPlayer.currentTimeProperty().addListener((observable, oldTime, newTime) -> {
                 mediaSlider.setValue(newTime.toSeconds());
             });
 
-            mediaPlayer.play();
-
+            mediaPlayer.setOnEndOfMedia(() -> {
+                playNextVideo();
+            });
         }
-
     }
 
     @FXML
