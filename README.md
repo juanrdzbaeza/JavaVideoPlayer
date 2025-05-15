@@ -1,66 +1,54 @@
-Here is a preliminary `README.md` for your project:
 # JavaFX Video Player
 
-A simple video player application built using JavaFX. This application allows users to open, play, pause, and stop video files.
+A simple video player application built using JavaFX. This application allows users to open, play, pause, stop, repeat and mute video files. It also includes a volume slider and a media slider to control the playback progress.
 
 ## Features
 
-- Open video files (`.mp4`, `.mkv`, `.avi`) using a file chooser.
-- Play, pause, and stop video playback.
-- User-friendly interface with basic controls.
+-   Open multiple video files (`.mp4`) using a file chooser and play them in a playlist.
+-   Play, pause, and stop video playback.
+-   Adjust volume using a volume slider.
+-   Control playback progress using a media slider.
+-   Toggle repeat mode.
+-   Toggle mute mode.
+-   The controls are displayed on top of the video with a transparent background and fade in/out on mouse movement.
 
 ## Prerequisites
 
-- **Java Development Kit (JDK)**: Version 17 or higher.
-- **Maven**: Ensure Maven is installed and configured.
-- **JavaFX**: The project uses JavaFX 20.0.2.
+-   **Java Development Kit (JDK)**: Version 17 or higher.
+-   **Maven**: Ensure Maven is installed and configured.
+-   **JavaFX**: The project uses JavaFX.
 
 ## Setup Instructions
 
-1. Clone the repository:
-```bash
-   git clone https://github.com/juanrdzbaeza/javafx-video-player.git
-   cd javafx-video-player
-```
+1.  Clone the repository:
 
-2. Add JavaFX dependencies to your `pom.xml`:
-```xml
-   <dependencies>
-       <dependency>
-           <groupId>org.openjfx</groupId>
-           <artifactId>javafx-controls</artifactId>
-           <version>20.0.2</version>
-       </dependency>
-       <dependency>
-           <groupId>org.openjfx</groupId>
-           <artifactId>javafx-fxml</artifactId>
-           <version>20.0.2</version>
-       </dependency>
-       <dependency>
-           <groupId>org.openjfx</groupId>
-           <artifactId>javafx-media</artifactId>
-           <version>20.0.2</version>
-       </dependency>
-   </dependencies>
-```
+    ```bash
+    git clone https://github.com/juanrdzbaeza/javafx-video-player.git
+    cd javafx-video-player
+    ```
+2.  Build and run the project:
 
-3. Build and run the project:
-```bash
-   mvn clean install
-   mvn javafx:run
-```
+    ```bash
+    mvn clean install
+    mvn javafx:run
+    ```
 
 ## Project Structure
 
-- `src/main/java/com/juanrdzbaeza/javavideoplayer/VideoPlayerApplication.java`: Main application entry point.
-- `src/main/java/com/juanrdzbaeza/javavideoplayer/VideoPlayerController.java`: Controller for handling UI interactions.
-- `src/main/resources/com/juanrdzbaeza/javavideoplayer/video-player-view.fxml`: FXML file defining the UI layout.
+-   `src/main/java/com/juanrdzbaeza/javavideoplayer/VideoPlayerApplication.java`: Main application entry point.
+-   `src/main/java/com/juanrdzbaeza/javavideoplayer/VideoPlayerController.java`: Controller for handling UI interactions.
+-   `src/main/resources/com/juanrdzbaeza/javavideoplayer/video-player-view.fxml`: FXML file defining the UI layout.
 
 ## Usage
 
-1. Launch the application.
-2. Click the "Open File" button to select a video file.
-3. Use the "Play", "Pause", and "Stop" buttons to control playback.
+1.  Launch the application.
+2.  Click the "Open File" button to select one or more video files.
+3.  Use the "Play", "Pause", and "Stop" buttons to control playback.
+4.  Use the "Repeat" button to toggle repeat mode.
+5.  Use the "Mute" button to toggle mute mode.
+6.  Use the volume slider to adjust the volume.
+7.  Use the media slider to control the playback progress.
+8.  Move the mouse near the top of the window to show/hide the controls.
 
 ## License
 
