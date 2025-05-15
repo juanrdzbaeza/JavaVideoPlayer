@@ -1,5 +1,8 @@
 # JavaFX Video Player
 
+<img src="src/main/resources/com/juanrdzbaeza/javavideoplayer/icon.png" alt="Icon" width="256" height="256">
+
+
 A simple video player application built using JavaFX. This application allows users to open, play, pause, stop, repeat and mute video files. It also includes a volume slider and a media slider to control the playback progress.
 
 ## Features
