@@ -70,6 +70,37 @@ public class VideoPlayerController {
             }
         });
 
+        // Resize the window and assign an event after the scene is loaded
+        javafx.application.Platform.runLater(() -> {
+            // Obtener el Stage actual
+            javafx.stage.Stage stage = (javafx.stage.Stage) mediaView.getScene().getWindow();
+
+            // Agregar un listener para imprimir el tamaño de la ventana al redimensionar
+            stage.widthProperty().addListener((observable, oldValue, newValue) -> {
+                System.out.println("Ancho de la ventana: " + newValue);
+                mediaView.setFitWidth((Double) newValue);
+            });
+
+            stage.heightProperty().addListener((observable, oldValue, newValue) -> {
+                System.out.println("Alto de la ventana: " + newValue);
+                mediaView.setFitHeight((Double) newValue);
+            });
+
+            // Ocultar la barra de controles al inicio
+            hideControls();
+
+            // Mostrar la barra de controles cuando el ratón se mueve cerca del borde superior
+            borderPane.setOnMouseMoved(event -> {
+                if (event.getY() <= 30) { // Ajusta este valor según la altura de tu barra de controles
+                    showControls();
+                } else {
+                    hideControls();
+                }
+            });
+
+            // Guarda la altura inicial del MediaView
+            initialMediaViewHeight = mediaView.getFitHeight();
+        });
     }
 
     @FXML
