@@ -43,11 +43,17 @@ public class VideoPlayerController {
     private File file;
     private Media media;
     private MediaPlayer mediaPlayer;
-    private boolean isLooping = false;
+    private RepeatMode repeatMode = RepeatMode.NONE;
     private boolean isMute = false;
     private List<File> files;
     private Queue<File> playlist = new LinkedList<>();
     private double initialMediaViewHeight;
+
+    private enum RepeatMode {
+        NONE,
+        CURRENT,
+        ALL
+    }
 
     @FXML
     public void initialize() {
@@ -119,8 +125,22 @@ public class VideoPlayerController {
     }
 
     private void playNextVideo() {
-        if (!playlist.isEmpty()) {
-            File nextFile = playlist.poll();
+        if (playlist.isEmpty() && repeatMode == RepeatMode.NONE) {
+            return;
+        }
+
+        if (playlist.isEmpty() && repeatMode == RepeatMode.ALL) {
+            playlist.addAll(files);
+        }
+
+        File nextFile = playlist.poll();
+
+        if (nextFile == null && repeatMode == RepeatMode.CURRENT) {
+            nextFile = file;
+        }
+
+        if (nextFile != null) {
+            file = nextFile;
             if (mediaPlayer != null) {
                 mediaPlayer.stop();
             }
@@ -139,7 +159,12 @@ public class VideoPlayerController {
             });
 
             mediaPlayer.setOnEndOfMedia(() -> {
-                playNextVideo();
+                if (repeatMode == RepeatMode.CURRENT) {
+                    mediaPlayer.seek(Duration.ZERO);
+                    mediaPlayer.play();
+                } else {
+                    playNextVideo();
+                }
             });
         }
     }
@@ -170,10 +195,19 @@ public class VideoPlayerController {
 
     @FXML
     protected void onRepeatClick() {
-        if (mediaPlayer != null) {
-            isLooping = !isLooping; // Alternar el estado de bucle
-            mediaPlayer.setCycleCount(isLooping ? MediaPlayer.INDEFINITE : 1);
-            repeatButton.setText(isLooping ? "\uD83D\uDD03: ON" : "\uD83D\uDD03: OFF");
+        switch (repeatMode) {
+            case NONE:
+                repeatMode = RepeatMode.CURRENT;
+                repeatButton.setText("Repeat Current");
+                break;
+            case CURRENT:
+                repeatMode = RepeatMode.ALL;
+                repeatButton.setText("Repeat All");
+                break;
+            case ALL:
+                repeatMode = RepeatMode.NONE;
+                repeatButton.setText("Repeat: Off");
+                break;
         }
     }
 
