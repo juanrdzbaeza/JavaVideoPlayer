@@ -3,48 +3,49 @@ package com.juanrdzbaeza.javavideoplayer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class VideoPlayerController {
 
     @FXML
-    private StackPane mediaViewContainer;
-
+    private BorderPane borderPane;
     @FXML
     private MediaView mediaView;
-
     @FXML
     private Button playButton;
-
     @FXML
     private Button pauseButton;
-
     @FXML
     private Button stopButton;
-
     @FXML
     private Button repeatButton;
-
     @FXML
     private Button muteButton;
-
     @FXML
     private Slider mediaSlider;
-
     @FXML
     private Slider volumeSlider;
-
+    @FXML
     private File file;
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean isLooping = false;
     private boolean isMute = false;
+    private List<File> files;
+    private Queue<File> playlist = new LinkedList<>();
+    private double initialMediaViewHeight;
 
     @FXML
     public void initialize() {
