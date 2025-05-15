@@ -1,6 +1,8 @@
 package com.juanrdzbaeza.javavideoplayer;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
@@ -38,6 +40,8 @@ public class VideoPlayerController {
     @FXML
     private Slider volumeSlider;
     @FXML
+    private HBox controlsBar;
+
     private File file;
     private Media media;
     private MediaPlayer mediaPlayer;
@@ -49,7 +53,6 @@ public class VideoPlayerController {
 
     @FXML
     public void initialize() {
-
         System.out.println("VideoPlayerController initialized");
 
         // Configurar el slider de volumen
@@ -182,4 +185,27 @@ public class VideoPlayerController {
         }
     }
 
+    private void showControls() {
+        controlsBar.setVisible(true);
+        controlsBar.setManaged(true);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), controlsBar);
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.setOnFinished(event -> {
+            BorderPane.setMargin(mediaView, new Insets(0, 0, 0, 0));
+        });
+        fadeTransition.play();
+    }
+
+    private void hideControls() {
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), controlsBar);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.setOnFinished(event -> {
+            controlsBar.setVisible(false);
+            controlsBar.setManaged(false);
+            BorderPane.setMargin(mediaView, null);
+        });
+        fadeTransition.play();
+    }
 }
