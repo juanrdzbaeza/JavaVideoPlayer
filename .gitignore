@@ -38,3 +38,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### video test files ###
+src/main/resources/com/juanrdzbaeza/javavideoplayer/video-test/

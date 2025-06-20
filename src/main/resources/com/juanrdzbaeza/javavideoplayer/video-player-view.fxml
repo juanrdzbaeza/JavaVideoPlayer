@@ -7,18 +7,17 @@
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.juanrdzbaeza.javavideoplayer.VideoPlayerController"
            stylesheets="@css/styles.css" fx:id="stackPane">
-    <children>
-        <MediaView fx:id="mediaView" fitWidth="800" fitHeight="450"/>
-        <HBox spacing="10" alignment="TOP_CENTER" fx:id="controlsBar"
-              style="-fx-background-color: transparent;">
-            <Button text="Open File" onAction="#onOpenFileClick"/>
-            <Button text="▶️" onAction="#onPlayClick" fx:id="playButton" />
-            <Button text="⏸️" onAction="#onPauseClick" fx:id="pauseButton"/>
-            <Button text="⏹️" onAction="#onStopClick" fx:id="stopButton"/>
-            <Button text="🔃" onAction="#onRepeatClick" fx:id="repeatButton"/>
-            <Slider fx:id="mediaSlider" min="0" max="100" value="0"/>
-            <Slider fx:id="volumeSlider" min="0" max="100" value="0"/>
-            <Button text="🔇" onAction="#onMuteClick" fx:id="muteButton"/>
-        </HBox>
-    </children>
+    <MediaView fx:id="mediaView" fitWidth="800" fitHeight="450" styleClass="media-player"/>
+    <HBox spacing="10" alignment="TOP_CENTER" fx:id="controlsBar"
+          style="-fx-background-color: transparent;">
+        <Button text="Open File" onAction="#onOpenFileClick"/>
+        <Button text="▶️" onAction="#onPlayClick" fx:id="playButton"/>
+        <Button text="⏸️" onAction="#onPauseClick" fx:id="pauseButton"/>
+        <Button text="⏹️" onAction="#onStopClick" fx:id="stopButton"/>
+        <Button text="🔃" onAction="#onRepeatClick" fx:id="repeatButton"/>
+        <Slider fx:id="mediaSlider" min="0" max="100" value="0"/>
+        <Slider fx:id="volumeSlider" min="0" max="100" value="0"/>
+        <Button text="🔇" onAction="#onMuteClick" fx:id="muteButton"/>
+        <Button text="🗖" onAction="#onFullScreenClick" fx:id="fullScreenButton"/>
+    </HBox>
 </StackPane>
