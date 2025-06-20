@@ -16,6 +16,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
 
 public class VideoPlayerController {
@@ -35,6 +36,8 @@ public class VideoPlayerController {
     @FXML
     private Button muteButton;
     @FXML
+    private Button fullScreenButton;
+    @FXML
     private Slider mediaSlider;
     @FXML
     private Slider volumeSlider;
@@ -45,6 +48,7 @@ public class VideoPlayerController {
     private MediaPlayer mediaPlayer;
     private RepeatMode repeatMode = RepeatMode.NONE;
     private boolean isMute = false;
+    private boolean isFullScreen = false;
     private List<File> files;
     private Queue<File> playlist = new LinkedList<>();
     private double initialMediaViewHeight;
@@ -99,7 +103,7 @@ public class VideoPlayerController {
 
             // Mostrar la barra de controles cuando el ratón se mueve cerca del borde superior
             stackPane.setOnMouseMoved(event -> {
-                if (event.getY() <= 30) { // Ajusta este valor según la altura de tu barra de controles
+                if (event.getY() <= 50) { // Ajusta este valor según la altura de tu barra de controles
                     showControls();
                 } else {
                     hideControls();
@@ -218,6 +222,13 @@ public class VideoPlayerController {
             mediaPlayer.setMute(isMute);
             muteButton.setText(isMute ? "🔇" : "🔊");
         }
+    }
+
+    @FXML
+    protected void onFullScreenClick() {
+        Stage stage = (Stage) fullScreenButton.getScene().getWindow();
+        isFullScreen = !isFullScreen;
+        stage.setFullScreen(isFullScreen);
     }
 
     private void showControls() {
